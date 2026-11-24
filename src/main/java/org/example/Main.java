@@ -46,8 +46,8 @@ public class Main {
         String path = ex.getRequestURI().getPath();
         if (path.equals("/")) path = "/index.html";
 
-        Path file = Path.of("public", path).normalize();
-        if (!file.startsWith("public") || !Files.isRegularFile(file)) {
+        Path file = Path.of("docs", path).normalize();
+        if (!file.startsWith("docs") || !Files.isRegularFile(file)) {
             send(ex, 404, "text/plain; charset=utf-8", "Niet gevonden".getBytes(StandardCharsets.UTF_8));
             return;
         }

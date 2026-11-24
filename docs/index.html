@@ -24,7 +24,7 @@
 </section>
 
 <script>
-    fetch('/api/products')
+    fetch('products.json')
         .then(r => r.json())
         .then(products => {
             const grid = document.getElementById('grid');

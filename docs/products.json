@@ -1,0 +1,6 @@
+[
+  { "id": "parka", "name": "Regenjas", "category": "Outerwear", "price": 189.0, "description": "Een jas waar regen vanaf rolt." },
+  { "id": "sneaker", "name": "Schoenen", "category": "Footwear", "price": 129.0, "description": "Waterdichte sneaker voor elke dag." },
+  { "id": "chino", "name": "Vlekbestendige broek", "category": "Trousers", "price": 95.0, "description": "Een broek waar koffie vanaf rolt." },
+  { "id": "hat", "name": "Hoed", "category": "Accessories", "price": 45.0, "description": "Kleine hoed, grote rand." }
+]
