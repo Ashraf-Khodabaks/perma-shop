@@ -28,14 +28,38 @@
         .then(r => r.json())
         .then(products => {
             const grid = document.getElementById('grid');
+
             grid.innerHTML = products.map(p => `
-          <article class="card">
-            <div class="picture"></div>
-            <h3>${p.name}</h3>
-            <p class="category">${p.category}</p>
-            <p class="price">€${p.price}</p>
-          </article>
-        `).join('');
+        <article class="card">
+          <div class="picture">
+            <div class="label">
+              <p class="label-title">Perma · care &amp; content</p>
+              <dl>
+                <dt>Content</dt>
+                <dd>${p.content}</dd>
+                <dt>Finish <span class="chip">PFAS</span></dt>
+                <dd>${p.finish}</dd>
+                <dt>Wash</dt>
+                <dd>${p.wash}</dd>
+                <dt>Afterwards</dt>
+                <dd>${p.afterwards}</dd>
+              </dl>
+            </div>
+          </div>
+          <h3>${p.name}</h3>
+          <p class="category">${p.category}</p>
+          <p class="price">€${p.price}</p>
+          <button class="flip" type="button">Read the label</button>
+        </article>
+      `).join('');
+
+            grid.addEventListener('click', e => {
+                const btn = e.target.closest('.flip');
+                if (!btn) return;
+                const card = btn.closest('.card');
+                const open = card.classList.toggle('flipped');
+                btn.textContent = open ? 'Back' : 'Read the label';
+            });
         });
 </script>
 

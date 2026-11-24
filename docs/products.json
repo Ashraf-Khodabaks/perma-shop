@@ -1,6 +1,46 @@
 [
-  { "id": "parka", "name": "Regenjas", "category": "Outerwear", "price": 189.0, "description": "Een jas waar regen vanaf rolt." },
-  { "id": "sneaker", "name": "Schoenen", "category": "Footwear", "price": 129.0, "description": "Waterdichte sneaker voor elke dag." },
-  { "id": "chino", "name": "Vlekbestendige broek", "category": "Trousers", "price": 95.0, "description": "Een broek waar koffie vanaf rolt." },
-  { "id": "hat", "name": "Hoed", "category": "Accessories", "price": 45.0, "description": "Kleine hoed, grote rand." }
+  {
+    "id": "parka",
+    "name": "Stormshell Parka",
+    "category": "Outerwear",
+    "price": 189.0,
+    "description": "Een jas waar regen vanaf rolt.",
+    "content": "100% recycled polyester, taped seams",
+    "finish": "Fluorocarbon water-repellent finish (DWR)",
+    "wash": "Machine wash 30°C. The finish wears off with washing and wear.",
+    "afterwards": "PFAS from the finish do not break down naturally. They stay in water and soil long after the jacket is gone."
+  },
+  {
+    "id": "sneaker",
+    "name": "Trail Sneaker",
+    "category": "Footwear",
+    "price": 129.0,
+    "description": "Waterdichte sneaker voor elke dag.",
+    "content": "Recycled mesh upper, rubber sole",
+    "finish": "Waterproofing coating on the upper",
+    "wash": "Wipe clean only. Do not machine wash.",
+    "afterwards": "Wear, scuffing and cleaning can release residues of the coating into dust and rinse water."
+  },
+  {
+    "id": "chino",
+    "name": "Stainguard Chino",
+    "category": "Trousers",
+    "price": 95.0,
+    "description": "Een broek waar koffie vanaf rolt.",
+    "content": "98% cotton, 2% elastane",
+    "finish": "Fluorinated stain and soil-release finish",
+    "wash": "Machine wash 40°C. Each wash can send part of the finish down the drain.",
+    "afterwards": "Wastewater treatment plants are not built to filter out PFAS, so they end up in rivers and the sea."
+  },
+  {
+    "id": "hat",
+    "name": "Drizzle Bucket Hat",
+    "category": "Accessories",
+    "price": 45.0,
+    "description": "Kleine hoed, grote rand.",
+    "content": "100% cotton canvas",
+    "finish": "Water-repellent finish (fluorinated)",
+    "wash": "Spot clean only.",
+    "afterwards": "Small item, same chemistry as the parka. The finish is what makes it last, and what makes it stay."
+  }
 ]

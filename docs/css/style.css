@@ -84,3 +84,67 @@ header {
     font-weight: 600;
     margin: 4px 0 0;
 }
+
+.card .picture {
+    position: relative;
+    overflow: hidden;
+}
+
+.label {
+    display: none;
+    position: absolute;
+    inset: 10px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 16px 14px;
+    font-size: 13px;
+    line-height: 1.35;
+    overflow: auto;
+    box-shadow: 0 6px 16px rgba(14, 28, 40, 0.15);
+}
+
+.card.flipped .label {
+    display: block;
+}
+
+.label-title {
+    margin: 0 0 8px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.label dt {
+    font-weight: 700;
+    color: var(--soft);
+    margin-top: 8px;
+}
+
+.label dd {
+    margin: 0;
+}
+
+.chip {
+    background: #D6264F;
+    color: #fff;
+    padding: 0 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+.flip {
+    margin-top: 12px;
+    font: inherit;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 2px solid var(--sea);
+    background: transparent;
+    color: var(--sea);
+    cursor: pointer;
+}
+
+.flip:hover {
+    background: var(--sea);
+    color: var(--rain);
+}
