@@ -30,10 +30,10 @@ public class Main {
 
     }
     static final List<Product> PRODUCTS = List.of(
-            new Product("parka", "Stormshell Parka", "Outerwear", 189.0, "Een jas waar regen vanaf rolt."),
-            new Product("sneaker", "Trail Sneaker", "Footwear", 129.0, "Waterdichte sneaker voor elke dag."),
-            new Product("chino", "Stainguard Chino", "Trousers", 95.0, "Een broek waar koffie vanaf rolt."),
-            new Product("hat", "Drizzle Bucket Hat", "Accessories", 45.0, "Kleine hoed, grote rand.")
+            new Product("parka", "Regenjas", "Outerwear", 189.0, "Een jas waar regen vanaf rolt."),
+            new Product("sneaker", "Schoenen", "Footwear", 129.0, "Waterdichte sneaker voor elke dag."),
+            new Product("chino", "Vlekbestendige broek", "Trousers", 95.0, "Een broek waar koffie vanaf rolt."),
+            new Product("hat", "Hoed", "Accessories", 45.0, "Kleine hoed, grote rand.")
     );
 
     static void products(HttpExchange ex) throws IOException {
