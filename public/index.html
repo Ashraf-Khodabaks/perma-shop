@@ -6,11 +6,20 @@
 </head>
 <body>
 <h1>Perma</h1>
-<p id="msg">Laden...</p>
+<div id="grid"></div>
 <script>
-    fetch('/api/hello')
-        .then(r => r.text())
-        .then(t => document.getElementById('msg').textContent = t);
+    fetch('/api/products')
+        .then(r => r.json())
+        .then(products => {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = products.map(p => `
+        <div>
+          <h2>${p.name}</h2>
+          <p>${p.category} - €${p.price}</p>
+          <p>${p.description}</p>
+        </div>
+      `).join('');
+        });
 </script>
 </body>
 </html>

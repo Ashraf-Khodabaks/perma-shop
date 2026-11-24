@@ -9,12 +9,16 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/api/hello", Main::hello);
+        server.createContext("/api/products", Main::products);
         server.createContext("/", Main::files);
         server.start();
         System.out.println("Server draait op http://localhost:8080");
@@ -23,6 +27,18 @@ public class Main {
     // API: stuurt tekst terug
     static void hello(HttpExchange ex) throws IOException {
         send(ex, 200, "text/plain; charset=utf-8", "Hallo Perma!".getBytes(StandardCharsets.UTF_8));
+
+    }
+    static final List<Product> PRODUCTS = List.of(
+            new Product("parka", "Stormshell Parka", "Outerwear", 189.0, "Een jas waar regen vanaf rolt."),
+            new Product("sneaker", "Trail Sneaker", "Footwear", 129.0, "Waterdichte sneaker voor elke dag."),
+            new Product("chino", "Stainguard Chino", "Trousers", 95.0, "Een broek waar koffie vanaf rolt."),
+            new Product("hat", "Drizzle Bucket Hat", "Accessories", 45.0, "Kleine hoed, grote rand.")
+    );
+
+    static void products(HttpExchange ex) throws IOException {
+        String json = "[" + PRODUCTS.stream().map(Product::toJson).collect(Collectors.joining(",")) + "]";
+        send(ex, 200, "application/json; charset=utf-8", json.getBytes(StandardCharsets.UTF_8));
     }
 
     // Website: stuurt bestanden uit map "public"
