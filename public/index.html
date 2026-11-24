@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Perma</title>
+</head>
+<body>
+<h1>Perma</h1>
+<p id="msg">Laden...</p>
+<script>
+    fetch('/api/hello')
+        .then(r => r.text())
+        .then(t => document.getElementById('msg').textContent = t);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+package org.example;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpServer;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        server.createContext("/api/hello", Main::hello);
+        server.createContext("/", Main::files);
+        server.start();
+        System.out.println("Server draait op http://localhost:8080");
+    }
+
+    // API: stuurt tekst terug
+    static void hello(HttpExchange ex) throws IOException {
+        send(ex, 200, "text/plain; charset=utf-8", "Hallo Perma!".getBytes(StandardCharsets.UTF_8));
+    }
+
+    // Website: stuurt bestanden uit map "public"
+    static void files(HttpExchange ex) throws IOException {
+        String path = ex.getRequestURI().getPath();
+        if (path.equals("/")) path = "/index.html";
+
+        Path file = Path.of("public", path).normalize();
+        if (!file.startsWith("public") || !Files.isRegularFile(file)) {
+            send(ex, 404, "text/plain; charset=utf-8", "Niet gevonden".getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+        send(ex, 200, type(file.toString()), Files.readAllBytes(file));
+    }
+
+    static String type(String name) {
+        if (name.endsWith(".html")) return "text/html; charset=utf-8";
+        if (name.endsWith(".css")) return "text/css; charset=utf-8";
+        if (name.endsWith(".js")) return "application/javascript; charset=utf-8";
+        if (name.endsWith(".json")) return "application/json; charset=utf-8";
+        if (name.endsWith(".svg")) return "image/svg+xml";
+        if (name.endsWith(".png")) return "image/png";
+        if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "image/jpeg";
+        return "application/octet-stream";
+    }
+
+    static void send(HttpExchange ex, int code, String contentType, byte[] body) throws IOException {
+        ex.getResponseHeaders().set("Content-Type", contentType);
+        ex.sendResponseHeaders(code, body.length);
+        try (OutputStream os = ex.getResponseBody()) {
+            os.write(body);
+        }
+    }
+}
