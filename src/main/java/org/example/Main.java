@@ -29,18 +29,10 @@ public class Main {
         send(ex, 200, "text/plain; charset=utf-8", "Hallo Perma!".getBytes(StandardCharsets.UTF_8));
 
     }
-    static final List<Product> PRODUCTS = List.of(
-            new Product("parka", "Regenjas", "Outerwear", 189.0, "Een jas waar regen vanaf rolt."),
-            new Product("sneaker", "Schoenen", "Footwear", 129.0, "Waterdichte sneaker voor elke dag."),
-            new Product("chino", "Vlekbestendige broek", "Trousers", 95.0, "Een broek waar koffie vanaf rolt."),
-            new Product("hat", "Hoed", "Accessories", 45.0, "Kleine hoed, grote rand.")
-    );
-
     static void products(HttpExchange ex) throws IOException {
-        String json = "[" + PRODUCTS.stream().map(Product::toJson).collect(Collectors.joining(",")) + "]";
-        send(ex, 200, "application/json; charset=utf-8", json.getBytes(StandardCharsets.UTF_8));
+        byte[] json = Files.readAllBytes(Path.of("docs", "products.json"));
+        send(ex, 200, "application/json; charset=utf-8", json);
     }
-
     // Website: stuurt bestanden uit map "public"
     static void files(HttpExchange ex) throws IOException {
         String path = ex.getRequestURI().getPath();
