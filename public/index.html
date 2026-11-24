@@ -1,25 +1,43 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Perma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;500;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>Perma</h1>
-<div id="grid"></div>
+
+<header>
+    <span class="logo">PERMA</span>
+</header>
+
+<section class="hero">
+    <h1>Made to last.</h1>
+    <p>Longer than you think.</p>
+</section>
+
+<section class="shop">
+    <h2>The collection</h2>
+    <div id="grid" class="grid"></div>
+</section>
+
 <script>
     fetch('/api/products')
         .then(r => r.json())
         .then(products => {
             const grid = document.getElementById('grid');
             grid.innerHTML = products.map(p => `
-        <div>
-          <h2>${p.name}</h2>
-          <p>${p.category} - €${p.price}</p>
-          <p>${p.description}</p>
-        </div>
-      `).join('');
+          <article class="card">
+            <div class="picture"></div>
+            <h3>${p.name}</h3>
+            <p class="category">${p.category}</p>
+            <p class="price">€${p.price}</p>
+          </article>
+        `).join('');
         });
 </script>
+
 </body>
 </html>
