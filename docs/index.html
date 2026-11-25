@@ -10,7 +10,11 @@
 <body>
 
 <header>
-    <span class="logo">PERMA</span>
+    <a class="logo" href="index.html">PERMA</a>
+    <nav>
+        <a href="index.html#collection">Shop</a>
+        <a href="learn.html">The label</a>
+    </nav>
 </header>
 
 <section class="hero">
@@ -18,10 +22,12 @@
     <p>Longer than you think.</p>
 </section>
 
-<section class="shop">
+<section id ="collection" class = "shop">
     <h2>The collection</h2>
     <div id="grid" class="grid"></div>
 </section>
+
+<script src="js/art.js"></script>
 
 <script>
     fetch('products.json')
@@ -32,6 +38,7 @@
             grid.innerHTML = products.map(p => `
         <article class="card">
           <div class="picture">
+            ${garment(p.id)}
             <div class="label">
               <p class="label-title">Perma · care &amp; content</p>
               <dl>
