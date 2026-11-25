@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product - Perma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;500;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <a class="logo" href="index.html">PERMA</a>
+    <nav>
+        <a href="index.html#collection">Shop</a>
+        <a href="learn.html">The label</a>
+    </nav>
+</header>
+
+<main id="product" class="product">
+    <p>Loading...</p>
+</main>
+
+<footer>
+    <p>Perma is a fictional brand, made for a university assignment about PFAS. Nothing here can be bought.</p>
+</footer>
+
+<script src="js/art.js"></script>
+<script>
+    const id = new URLSearchParams(location.search).get('id');
+    const root = document.getElementById('product');
+
+    fetch('products.json')
+        .then(r => r.json())
+        .then(products => {
+            const p = products.find(x => x.id === id);
+
+            if (!p) {
+                root.innerHTML = '<p>Product not found. <a href="index.html#collection">Back to the collection</a></p>';
+                return;
+            }
+
+            document.title = p.name + ' - Perma';
+
+            root.innerHTML = `
+                <div class="stage">${garment(p.id)}</div>
+                <div class="info">
+                    <a class="crumb" href="index.html#collection">Back to the collection</a>
+                    <h1>${p.name}</h1>
+                    <p class="price">€${p.price}</p>
+                    <p>${p.description}</p>
+
+                    <h2>The label</h2>
+                    <div class="tag">
+                        <p class="label-title">Perma · care &amp; content</p>
+                        <dl>
+                            <dt>Content</dt>
+                            <dd>${p.content}</dd>
+                            <dt>Finish <span class="chip">PFAS</span></dt>
+                            <dd>${p.finish}</dd>
+                            <dt>Wash</dt>
+                            <dd>${p.wash}</dd>
+                            <dt>Afterwards</dt>
+                            <dd>${p.afterwards}</dd>
+                        </dl>
+                    </div>
+
+                    <h2>A different option</h2>
+                    <div class="alt">
+                        <h3>${p.altName}</h3>
+                        <p>${p.altNote}</p>
+                    </div>
+                </div>
+            `;
+        });
+</script>
+
+</body>
+</html>

@@ -224,3 +224,112 @@ footer p {
     margin: 0;
     max-width: 640px;
 }
+
+.card h3 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card h3 a:hover {
+    color: var(--bead);
+}
+
+.product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    padding: 16px 48px 80px;
+}
+
+.stage {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    background: var(--panel);
+    border-radius: 6px;
+    aspect-ratio: 4 / 5;
+    display: grid;
+    place-items: center;
+    padding: 12%;
+}
+
+.stage svg {
+    width: 100%;
+    height: 100%;
+}
+
+.crumb {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: var(--soft);
+}
+
+.info h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+}
+
+.info .price {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 16px;
+}
+
+.info h2 {
+    font-size: 26px;
+    margin: 40px 0 16px;
+}
+
+.tag {
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px 20px;
+    max-width: 480px;
+    box-shadow: 0 6px 16px rgba(14, 28, 40, 0.15);
+}
+
+.tag .label-title {
+    margin: 0 0 8px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.tag dt {
+    font-weight: 700;
+    color: var(--soft);
+    margin-top: 12px;
+}
+
+.tag dd {
+    margin: 0;
+}
+
+.alt {
+    max-width: 480px;
+    border: 2px solid var(--bead);
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.alt h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.alt p {
+    margin: 0;
+}
+
+@media (max-width: 800px) {
+    .product {
+        grid-template-columns: 1fr;
+        padding: 16px 24px 64px;
+    }
+
+    .stage {
+        position: static;
+    }
+}
