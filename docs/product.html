@@ -41,6 +41,7 @@
             }
 
             document.title = p.name + ' - Perma';
+            if (p.collection === 'alpine') document.body.classList.add('alpine');
 
             root.innerHTML = `
                 <div class="stage">${garment(p.id)}</div>
@@ -56,9 +57,9 @@
                         <dl>
                             <dt>Content</dt>
                             <dd>${p.content}</dd>
-                            <dt>Finish <span class="chip">PFAS</span></dt>
+                            <<dt>${p.finishLabel || 'Finish'} <span class="chip">PFAS</span></dt>
                             <dd>${p.finish}</dd>
-                            <dt>Wash</dt>
+                            <<dt>${p.washLabel || 'Wash'}</dt>
                             <dd>${p.wash}</dd>
                             <dt>Afterwards</dt>
                             <dd>${p.afterwards}</dd>

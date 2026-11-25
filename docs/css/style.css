@@ -333,3 +333,80 @@ footer p {
         position: static;
     }
 }
+:root {
+    --ice: #9FD3FF;
+}
+
+.ridge {
+    display: block;
+    width: 100%;
+    height: 90px;
+    margin-bottom: -1px;
+}
+
+.drop {
+    background: var(--sea);
+    color: var(--rain);
+    --panel: #1B3142;
+    --soft: #9FB3C2;
+    padding-top: 24px;
+}
+
+.drop-tag {
+    display: inline-block;
+    margin: 0 0 12px;
+    padding: 2px 12px;
+    border: 1.5px solid var(--ice);
+    border-radius: 999px;
+    color: var(--ice);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.drop-lede {
+    margin: -16px 0 32px;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--ice);
+}
+
+.drop .label {
+    color: var(--sea);
+    --soft: #4A5B68;
+}
+
+.drop .card h3 a:hover {
+    color: var(--ice);
+}
+
+.drop .flip {
+    border-color: var(--ice);
+    color: var(--ice);
+}
+
+.drop .flip:hover {
+    background: var(--ice);
+    color: var(--sea);
+}
+
+/* Productpagina van een alpine-product */
+body.alpine {
+    background: var(--sea);
+    color: var(--rain);
+    --panel: #1B3142;
+    --soft: #9FB3C2;
+}
+
+body.alpine nav a:hover {
+    color: var(--ice);
+}
+
+body.alpine .tag {
+    color: var(--sea);
+    --soft: #4A5B68;
+}
+
+body.alpine .alt {
+    border-color: var(--ice);
+}

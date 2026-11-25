@@ -22,20 +22,30 @@
     <p>Longer than you think.</p>
 </section>
 
-<section id ="collection" class = "shop">
-    <h2>The collection</h2>
-    <div id="grid" class="grid"></div>
+<section id="collection" class="shop">
+    <h2>Everyday</h2>
+    <div id="grid-everyday" class="grid"></div>
 </section>
 
+<svg class="ridge" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 120 L0 70 L180 20 L300 60 L460 0 L640 70 L800 30 L980 80 L1100 40 L1200 70 L1200 120 Z" fill="#0E1C28"/>
+</svg>
+
+<section id="alpine" class="shop drop">
+    <p class="drop-tag">Drop 01</p>
+    <h2>Alpine</h2>
+    <p class="drop-lede">Our ski collection, it uses the same water-repellent finish as the pieces above</p>
+    <div id="grid-alpine" class="grid"></div>
+</section>
+
+<footer>
+    <p>Perma is a fictional brand, made for a university assignment about PFAS. Nothing here can be bought.</p>
+</footer>
+
 <script src="js/art.js"></script>
-
 <script>
-    fetch('products.json')
-        .then(r => r.json())
-        .then(products => {
-            const grid = document.getElementById('grid');
-
-            grid.innerHTML = products.map(p => `
+    function card(p) {
+        return `
         <article class="card">
           <div class="picture">
             ${garment(p.id)}
@@ -44,9 +54,9 @@
               <dl>
                 <dt>Content</dt>
                 <dd>${p.content}</dd>
-                <dt>Finish <span class="chip">PFAS</span></dt>
+                <dt>${p.finishLabel || 'Finish'} <span class="chip">PFAS</span></dt>
                 <dd>${p.finish}</dd>
-                <dt>Wash</dt>
+                <dt>${p.washLabel || 'Wash'}</dt>
                 <dd>${p.wash}</dd>
                 <dt>Afterwards</dt>
                 <dd>${p.afterwards}</dd>
@@ -57,17 +67,26 @@
           <p class="category">${p.category}</p>
           <p class="price">€${p.price}</p>
           <button class="flip" type="button">Read the label</button>
-        </article>
-      `).join('');
+        </article>`;
+    }
 
-            grid.addEventListener('click', e => {
-                const btn = e.target.closest('.flip');
-                if (!btn) return;
-                const card = btn.closest('.card');
-                const open = card.classList.toggle('flipped');
-                btn.textContent = open ? 'Back' : 'Read the label';
-            });
+    fetch('products.json')
+        .then(r => r.json())
+        .then(products => {
+            const show = (gridId, name) => {
+                document.getElementById(gridId).innerHTML =
+                    products.filter(p => p.collection === name).map(card).join('');
+            };
+            show('grid-everyday', 'everyday');
+            show('grid-alpine', 'alpine');
         });
+
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.flip');
+        if (!btn) return;
+        const open = btn.closest('.card').classList.toggle('flipped');
+        btn.textContent = open ? 'Back' : 'Read the label';
+    });
 </script>
 
 </body>

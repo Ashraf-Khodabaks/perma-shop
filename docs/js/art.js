@@ -33,8 +33,11 @@ const ART = {
       <path d="M72 92 L82 38 Q120 26 158 38 L168 92 Z"/>
       <path d="M18 104 Q120 146 222 104 Q204 86 168 92 L72 92 Q36 86 18 104 Z" fill-opacity=".8"/>
       <path d="M73 82 L72 92 L168 92 L167 82 Q120 92 73 82 Z" fill="#000" fill-opacity=".28"/>`
-    }
+    },
+
 };
+
+
 
 // Geeft de SVG-tekening voor een product-id. Onbekend id? Dan niks.
 function garment(id) {
