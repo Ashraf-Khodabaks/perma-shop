@@ -330,7 +330,7 @@ footer p {
     }
 
     .stage {
-        position: static;
+        position: relative;
     }
 }
 :root {
@@ -410,3 +410,15 @@ body.alpine .tag {
 body.alpine .alt {
     border-color: var(--ice);
 }
+
+.photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.stage {
+    overflow: hidden}
