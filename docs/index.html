@@ -70,12 +70,13 @@
 <script src="js/bag.js"></script>
 <script>
     document.documentElement.classList.add('js');
+    let products = [];
 
     function card(p) {
         return `
         <article class="card">
           <div class="picture">
-            ${garment(p.id)}
+            ${garment(p.id, p.colors?.[0]?.image)}
             <div class="label">
               <p class="label-title">Perma · care &amp; content</p>
               <dl>
@@ -102,7 +103,8 @@
 
     fetch('products.json')
         .then(r => r.json())
-        .then(products => {
+        .then(data => {
+            products = data;
             const show = (gridId, name) => {
                 document.getElementById(gridId).innerHTML =
                     products.filter(p => p.collection === name).map(card).join('');
@@ -134,7 +136,14 @@
         }
         const add = e.target.closest('.add');
         if (add) {
-            Bag.add(add.dataset.id);
+            const product = products.find(
+                p => p.id === add.dataset.id
+            );
+
+            Bag.add(
+                product.id,
+                product.colors?.[0]?.id
+            );
             updateBagCount();
             toast('Added to your bag');
         }

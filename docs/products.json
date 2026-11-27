@@ -1,3 +1,4 @@
+
 [
   {
     "id": "parka",
@@ -11,7 +12,27 @@
     "wash": "Machine wash at 30°C. The finish wears off over time.",
     "afterwards": "PFAS don't break down. They stay in water and soil after the jacket is thrown away.",
     "altName": "The same parka with a PFAS-free finish",
-    "altNote": "Wax or silicone-based repellents work for everyday rain. In heavy storms, fluorinated finishes tend to do better."
+    "altNote": "Wax or silicone-based repellents work for everyday rain. In heavy storms, fluorinated finishes tend to do better.",
+    "colors": [
+      {
+        "id": "black",
+        "name": "Black",
+        "image": "img/parka-black.jpg",
+        "hex": "#222222"
+      },
+      {
+        "id": "navy",
+        "name": "Navy",
+        "image": "img/parka-navy.jpg",
+        "hex": "#172B45"
+      },
+      {
+        "id": "olive",
+        "name": "Olive",
+        "image": "img/parka-olive.jpg",
+        "hex": "#596044"
+      }
+    ]
   },
   {
     "id": "sneaker",

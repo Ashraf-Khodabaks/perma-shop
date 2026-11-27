@@ -35,53 +35,148 @@
     fetch('products.json')
         .then(r => r.json())
         .then(products => {
+
             const p = products.find(x => x.id === id);
 
             if (!p) {
-                root.innerHTML = '<p>Product not found. <a href="index.html#collection">Back to the collection</a></p>';
+                root.innerHTML = '<p>Product not found.</p>';
                 return;
             }
 
             document.title = p.name + ' - Perma';
-            if (p.collection === 'alpine') document.body.classList.add('alpine');
 
+            if (p.collection === 'alpine') {
+                document.body.classList.add('alpine');
+            }
+
+            // Selecteer standaard de eerste kleur
+            const colors = p.colors || [];
+            let selectedColor = colors.length > 0 ? colors[0] : null;
+
+            // Bouw de productpagina
             root.innerHTML = `
-                <div class="stage">${garment(p.id)}</div>
+                <div class="stage">
+                    ${garment(p.id, selectedColor?.image)}
+                </div>
+
                 <div class="info">
-                    <a class="crumb" href="index.html#collection">Back to the collection</a>
+
+                    <a class="crumb" href="index.html#collection">
+                        Back to the collection
+                    </a>
+
                     <h1>${p.name}</h1>
+
                     <p class="price">€${p.price}</p>
+
                     <p>${p.description}</p>
-                    <button class="add" type="button" data-id="${p.id}">Add to bag</button>
+
+                    ${colors.length > 0 ? `
+                        <div class="color-section">
+
+                            <h3>Color</h3>
+
+                            <div class="color-options">
+                                ${colors.map(color => `
+                                    <button
+                                        type="button"
+                                        class="color-option ${color.id === selectedColor.id ? 'selected' : ''}"
+                                        data-color="${color.id}"
+                                        style="--color: ${color.hex}"
+                                        aria-label="${color.name}"
+                                        title="${color.name}">
+                                    </button>
+                                `).join('')}
+                            </div>
+
+                            <p id="selected-color">
+                                ${selectedColor.name}
+                            </p>
+
+                        </div>
+                    ` : ''}
+
+                    <button class="add" type="button">
+                        Add to bag
+                    </button>
 
                     <h2>The label</h2>
+
                     <div class="tag">
-                        <p class="label-title">Perma · care &amp; content</p>
+                        <p class="label-title">
+                            Perma · care &amp; content
+                        </p>
+
                         <dl>
                             <dt>Content</dt>
                             <dd>${p.content}</dd>
-                            <dt>${p.finishLabel || 'Finish'} <span class="chip">PFAS</span></dt>
+
+                            <dt>${p.finishLabel || 'Finish'}
+                                <span class="chip">PFAS</span>
+                            </dt>
                             <dd>${p.finish}</dd>
+
                             <dt>${p.washLabel || 'Wash'}</dt>
                             <dd>${p.wash}</dd>
+
                             <dt>Afterwards</dt>
                             <dd>${p.afterwards}</dd>
                         </dl>
                     </div>
 
                     <h2>A different option</h2>
+
                     <div class="alt">
                         <h3>${p.altName}</h3>
                         <p>${p.altNote}</p>
                     </div>
+
                 </div>
             `;
 
-            root.querySelector('.add').addEventListener('click', () => {
-                Bag.add(p.id);
-                updateBagCount();
-                toast('Added to your bag');
+            // Kleur selecteren
+            root.querySelectorAll('.color-option').forEach(button => {
+
+                button.addEventListener('click', () => {
+
+                    const colorId = button.dataset.color;
+
+                    selectedColor = colors.find(
+                        color => color.id === colorId
+                    );
+
+                    // Verander de productfoto
+                    const photo = root.querySelector('.stage img');
+
+                    if (photo) {
+                        photo.src = selectedColor.image;
+                    }
+
+                    // Verander de geselecteerde kleur
+                    root.querySelectorAll('.color-option')
+                        .forEach(b => b.classList.remove('selected'));
+
+                    button.classList.add('selected');
+
+                    // Toon de kleurnaam
+                    root.querySelector('#selected-color').textContent =
+                        selectedColor.name;
+
+                });
+
             });
+
+            // Product toevoegen aan winkelmand
+            root.querySelector('.add').addEventListener('click', () => {
+
+                Bag.add(p.id, selectedColor?.id);
+
+                updateBagCount();
+
+                toast('Added to your bag');
+
+            });
+
         });
 </script>
 

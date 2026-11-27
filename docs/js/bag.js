@@ -12,10 +12,12 @@ const Bag = {
         try { localStorage.setItem('perma-bag', JSON.stringify(items)); }
         catch (e) { /* opslag niet beschikbaar */ }
     },
-    add(id) {
+
+    add(id, colorId = null) {
         const items = this.read();
-        items.push({ id: id, free: false });
+        items.push({ id: id, colorId: colorId, free: false });
         this.write(items);
+
     },
     remove(i) {
         const items = this.read();

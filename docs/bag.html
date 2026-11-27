@@ -64,14 +64,25 @@
       let total = 0;
       lines.innerHTML = items.map((it, i) => {
         const p = products.find(x => x.id === it.id);
+
+        if (!p) return '';
+
+        const selectedColor = p.colors?.find(
+                color => color.id === it.colorId
+        ) || p.colors?.[0];
         if (!p) return '';
         total += p.price;
         return `
                 <article class="line">
-                    <div class="thumb">${garment(p.id)}</div>
+                    <div class="thumb">
+                        ${garment(p.id, selectedColor?.image)}
+                    </div>
                     <div class="line-info">
                         <h3>${p.name}</h3>
-                        <p class="category">${p.category}</p>
+                        <p class="category">
+                            ${p.category}
+                            ${selectedColor ? ` · ${selectedColor.name}` : ''}
+                        </p>
                         ${it.free
                 ? `<p><span class="chip free-chip">PFAS-free</span> ${p.altName}</p>`
                 : `<p><span class="chip">PFAS</span> ${p.finish}</p>`}

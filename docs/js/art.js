@@ -40,11 +40,23 @@ const ART = {
 
 
 // Geeft de SVG-tekening voor een product-id. Onbekend id? Dan niks.
-function garment(id) {
+function garment(id, imagePath = null) {
     const a = ART[id];
+
     const drawing = a
         ? `<svg viewBox="${a.viewBox}" style="color:${a.color}" fill="currentColor" role="img" aria-label="${id}">${a.body}</svg>`
         : '';
-    const photo = `<img class="photo" src="img/${id}.jpg" alt="${id}" onerror="this.remove()">`;
+
+    const image = imagePath || `img/${id}.jpg`;
+
+    const photo = `
+        <img
+            class="photo"
+            src="${image}"
+            alt="${id}"
+            onerror="this.remove()"
+        >
+    `;
+
     return drawing + photo;
 }

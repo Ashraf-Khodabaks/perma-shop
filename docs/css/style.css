@@ -872,3 +872,46 @@ body.alpine .add {
     .line { grid-template-columns: 80px 1fr; }
     .line .price { grid-column: 2; }
 }
+
+/* ---------- Productkleuren ---------- */
+
+.color-section {
+    margin-top: 28px;
+}
+
+.color-section h3 {
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+.color-options {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.color-option {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--color);
+    border: 2px solid #fff;
+    outline: 1px solid #B9C5CC;
+    cursor: pointer;
+    transition: outline .15s, transform .15s;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    outline: 2px solid var(--sea);
+    outline-offset: 3px;
+}
+
+#selected-color {
+    margin: 12px 0 0;
+    font-size: 15px;
+    color: var(--soft);
+}
