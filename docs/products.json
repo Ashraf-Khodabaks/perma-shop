@@ -84,5 +84,33 @@
     "afterwards": "Washing sends part of the finish into the wastewater, and PFAS pass through treatment plants.",
     "altName": "PFAS-free water-repellent gloves",
     "altNote": "Wax or silicone-based finishes keep out wet snow, but you may need to reapply them more often."
+  },
+  {
+    "id": "jacket",
+    "collection": "alpine",
+    "name": "Glacier Down Jacket",
+    "category": "Ski jacket",
+    "price": 329.0,
+    "description": "Short down jacket with a faux-fur hood. Warm and water-repellent.",
+    "content": "Cotton-polyester shell, down fill, polyester faux-fur trim",
+    "finish": "Fluorocarbon water-repellent finish (DWR) on the shell",
+    "wash": "Gentle wash at 30°C. The finish wears off over time.",
+    "afterwards": "Washing and wear send part of the finish into wastewater. PFAS pass through treatment plants.",
+    "altName": "The same jacket with a PFAS-free finish",
+    "altNote": "Wax or silicone-based finishes keep out light snow and drizzle. In wet snow you may need to reapply them more often."
+  },
+  {
+    "id": "boots",
+    "collection": "alpine",
+    "name": "Piste Ski Boots",
+    "category": "Ski boots",
+    "price": 449.0,
+    "description": "Four-buckle ski boots with a soft, warm liner.",
+    "content": "Polyurethane shell, felt liner, metal buckles",
+    "finish": "Fluorinated water-repellent treatment on the liner",
+    "wash": "Wipe the shell clean. Air-dry the liner. Do not machine wash.",
+    "afterwards": "Wear and cleaning can release bits of the treatment into dust and meltwater.",
+    "altName": "Boots with a PFAS-free liner treatment",
+    "altNote": "Liners without a fluorinated treatment stay warm. They can take longer to dry once wet."
   }
 ]
