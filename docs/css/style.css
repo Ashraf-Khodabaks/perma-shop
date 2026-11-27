@@ -574,3 +574,61 @@ header, .hero, .shop, footer, .product {
 @media (max-width: 520px) {
     .grid { grid-template-columns: 1fr; }
 }
+
+.hero p {
+    font-size: clamp(22px, 3.4vw, 48px);
+    font-weight: 300;
+    margin: 12px 0 0;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: 2px solid var(--sea);
+    background: var(--sea);
+    color: var(--rain);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+}
+
+.btn:hover {
+    background: var(--bead);
+    border-color: var(--bead);
+}
+
+.btn.ghost {
+    background: transparent;
+    color: var(--sea);
+}
+
+.btn.ghost:hover {
+    background: var(--sea);
+    border-color: var(--sea);
+    color: var(--rain);
+}
+
+/* Kaarten komen zacht in beeld bij scrollen */
+.js .card {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.js .card.in {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .js .card {--i: 0; opacity: 1; transform: none; transition: none; }
+}

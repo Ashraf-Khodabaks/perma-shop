@@ -20,6 +20,10 @@
 <section class="hero">
     <h1>Made to last.</h1>
     <p>Longer than you think.</p>
+    <div class="hero-actions">
+        <a class="btn" href="#collection">Shop the collection</a>
+        <a class="btn ghost" href="learn.html">Why the label matters</a>
+    </div>
     <div class="beads" aria-hidden="true">
         <span class="bead" style="--s:88px;--x:72%;--y:12%;--d:.1s"></span>
         <span class="bead" style="--s:48px;--x:84%;--y:26%;--d:.35s"></span>
@@ -57,6 +61,7 @@
 </footer>
 
 <script src="js/art.js"></script>
+document.documentElement.classList.add('js');
 <script>
     function card(p) {
         return `
@@ -93,6 +98,19 @@
             };
             show('grid-everyday', 'everyday');
             show('grid-alpine', 'alpine');
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.card').forEach((c, i) => {
+                c.style.setProperty('--i', i % 4);
+                io.observe(c);
+            });
         });
 
     document.addEventListener('click', e => {
