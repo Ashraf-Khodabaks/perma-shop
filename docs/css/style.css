@@ -632,3 +632,243 @@ header, .hero, .shop, footer, .product {
 @media (prefers-reduced-motion: reduce) {
     .js .card {--i: 0; opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- Banner ---------- */
+.banner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 72px);
+    min-height: calc(100svh - 72px);
+}
+
+.banner-text {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 48px 72px var(--side);
+}
+
+.banner-text h1 {
+    font-size: clamp(44px, 6.4vw, 104px);
+    line-height: .95;
+    margin: 0 0 20px;
+}
+
+.banner-text p {
+    font-size: clamp(22px, 2.6vw, 40px);
+    font-weight: 300;
+    font-stretch: 100%;
+    margin: 0;
+}
+
+.banner .beads { inset: 0; }
+
+.banner-photo {
+    position: relative;
+    min-height: 360px;
+}
+
+.banner-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+}
+
+.scroll-cue {
+    position: absolute;
+    left: var(--side);
+    bottom: 28px;
+    color: var(--soft);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.scroll-cue:hover { color: var(--bead); }
+
+@media (max-width: 800px) {
+    .banner { grid-template-columns: 1fr; min-height: 0; }
+    .banner-photo { order: -1; height: 62vh; min-height: 0; }
+    .banner-text { padding: 32px 24px 72px; }
+    .banner .beads { display: none; }
+    .scroll-cue { left: 24px; bottom: 24px; }
+}
+
+/* ---------- Mandje-knop ---------- */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.actions .flip { margin-top: 0; }
+
+.add {
+    font: inherit;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 2px solid var(--sea);
+    background: var(--sea);
+    color: var(--rain);
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+}
+
+.add:hover { background: var(--bead); border-color: var(--bead); }
+
+.drop .add,
+body.alpine .add {
+    background: var(--ice);
+    border-color: var(--ice);
+    color: var(--sea);
+}
+
+.drop .add:hover { background: #fff; border-color: #fff; }
+
+.info .add { margin-top: 8px; padding: 12px 24px; }
+
+#toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    translate: -50% 150%;
+    opacity: 0;
+    visibility: hidden;
+    background: var(--sea);
+    color: var(--rain);
+    padding: 12px 20px;
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .25), 0 8px 24px rgba(0, 0, 0, .25);
+    transition: translate .3s, opacity .3s, visibility .3s;
+    z-index: 10;
+}
+
+#toast.show { translate: -50% 0; opacity: 1; visibility: visible; }
+
+/* ---------- Mandje-pagina ---------- */
+.bag-page { padding: 16px var(--side) 80px; }
+
+.bag-page h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1;
+    margin: 0 0 32px;
+}
+
+.bag-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+.line {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 20px;
+    padding: 20px 0;
+    border-top: 1px solid #B9C5CC;
+}
+
+.thumb {
+    position: relative;
+    background: var(--panel);
+    border-radius: 6px;
+    aspect-ratio: 4 / 5;
+    display: grid;
+    place-items: center;
+    padding: 12%;
+    overflow: hidden;
+}
+
+.thumb svg { width: 100%; height: 100%; }
+
+.line h3 { margin: 0; font-size: 20px; }
+.line .category { margin: 2px 0 8px; color: var(--soft); font-size: 15px; }
+.line-info p { margin: 0 0 8px; font-size: 15px; }
+.line .price { margin: 0; font-weight: 600; }
+
+.line-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.link {
+    font: inherit;
+    font-size: 15px;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--bead);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.free-chip { background: #1F7A4D; }
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid #B9C5CC;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* ---------- PFAS-meter ---------- */
+.meter-card {
+    position: sticky;
+    top: 24px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 28px;
+    box-shadow: 0 10px 24px rgba(14, 28, 40, .12);
+}
+
+.meter-card h2 { font-size: 24px; margin: 0 0 20px; }
+
+.gauge {
+    height: 18px;
+    border-radius: 999px;
+    background: #DAE2E6;
+    overflow: hidden;
+}
+
+.gauge-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: var(--bead);
+    transition: width .8s cubic-bezier(.3, .8, .3, 1), background .4s;
+}
+
+.gauge[data-level="medium"] .gauge-fill { background: #E08A1E; }
+.gauge[data-level="high"] .gauge-fill { background: #D6264F; }
+
+.gauge-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--soft);
+}
+
+.level {
+    font-size: 32px;
+    font-stretch: 125%;
+    font-weight: 800;
+    line-height: 1;
+    margin: 20px 0 8px;
+}
+
+.meter-card p { margin: 0 0 12px; }
+.meter-card .fine { font-size: 14px; color: var(--soft); }
+
+@media (max-width: 800px) {
+    .bag-layout { grid-template-columns: 1fr; }
+    .meter-card { position: static; }
+    .line { grid-template-columns: 80px 1fr; }
+    .line .price { grid-column: 2; }
+}

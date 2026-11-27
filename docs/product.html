@@ -14,6 +14,7 @@
     <nav>
         <a href="index.html#collection">Shop</a>
         <a href="learn.html">The label</a>
+        <a href="bag.html">Bag (<span data-bag-count>0</span>)</a>
     </nav>
 </header>
 
@@ -26,6 +27,7 @@
 </footer>
 
 <script src="js/art.js"></script>
+<script src="js/bag.js"></script>
 <script>
     const id = new URLSearchParams(location.search).get('id');
     const root = document.getElementById('product');
@@ -50,6 +52,7 @@
                     <h1>${p.name}</h1>
                     <p class="price">€${p.price}</p>
                     <p>${p.description}</p>
+                    <button class="add" type="button" data-id="${p.id}">Add to bag</button>
 
                     <h2>The label</h2>
                     <div class="tag">
@@ -57,9 +60,9 @@
                         <dl>
                             <dt>Content</dt>
                             <dd>${p.content}</dd>
-                            <<dt>${p.finishLabel || 'Finish'} <span class="chip">PFAS</span></dt>
+                            <dt>${p.finishLabel || 'Finish'} <span class="chip">PFAS</span></dt>
                             <dd>${p.finish}</dd>
-                            <<dt>${p.washLabel || 'Wash'}</dt>
+                            <dt>${p.washLabel || 'Wash'}</dt>
                             <dd>${p.wash}</dd>
                             <dt>Afterwards</dt>
                             <dd>${p.afterwards}</dd>
@@ -73,6 +76,12 @@
                     </div>
                 </div>
             `;
+
+            root.querySelector('.add').addEventListener('click', () => {
+                Bag.add(p.id);
+                updateBagCount();
+                toast('Added to your bag');
+            });
         });
 </script>
 

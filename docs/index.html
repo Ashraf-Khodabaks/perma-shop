@@ -14,29 +14,35 @@
     <nav>
         <a href="index.html#collection">Shop</a>
         <a href="learn.html">The label</a>
+        <a href="bag.html">Bag (<span data-bag-count>0</span>)</a>
     </nav>
 </header>
 
-<section class="hero">
-    <h1>Made to last.</h1>
-    <p>Longer than you think.</p>
-    <div class="hero-actions">
-        <a class="btn" href="#collection">Shop the collection</a>
-        <a class="btn ghost" href="learn.html">Why the label matters</a>
+<section class="banner">
+    <div class="banner-text">
+        <h1>Made to last.</h1>
+        <p>Longer than you think.</p>
+        <div class="hero-actions">
+            <a class="btn" href="#collection">Shop the collection</a>
+            <a class="btn ghost" href="learn.html">Why the label matters</a>
+        </div>
+        <a class="scroll-cue" href="#collection">Scroll to the collection ↓</a>
+
+        <div class="beads" aria-hidden="true">
+            <span class="bead" style="--s:88px;--x:80%;--y:8%;--d:.1s"></span>
+            <span class="bead" style="--s:48px;--x:91%;--y:22%;--d:.35s"></span>
+            <span class="bead" style="--s:120px;--x:76%;--y:40%;--d:.2s"></span>
+            <span class="bead" style="--s:36px;--x:68%;--y:60%;--d:.55s"></span>
+            <span class="bead" style="--s:64px;--x:90%;--y:66%;--d:.45s"></span>
+            <span class="bead" style="--s:26px;--x:94%;--y:8%;--d:.7s"></span>
+            <span class="bead" style="--s:44px;--x:78%;--y:84%;--d:.3s"></span>
+            <span class="bead" style="--s:18px;--x:84%;--y:32%;--d:.8s"></span>
+            <span class="bead" style="--s:14px;--x:86%;--y:56%;--d:.9s"></span>
+            <span class="bead" style="--s:22px;--x:95%;--y:44%;--d:.6s"></span>
+        </div>
     </div>
-    <div class="beads" aria-hidden="true">
-        <span class="bead" style="--s:88px;--x:72%;--y:12%;--d:.1s"></span>
-        <span class="bead" style="--s:48px;--x:84%;--y:26%;--d:.35s"></span>
-        <span class="bead" style="--s:128px;--x:78%;--y:44%;--d:.2s"></span>
-        <span class="bead" style="--s:36px;--x:66%;--y:58%;--d:.55s"></span>
-        <span class="bead" style="--s:64px;--x:90%;--y:70%;--d:.45s"></span>
-        <span class="bead" style="--s:26px;--x:93%;--y:10%;--d:.7s"></span>
-        <span class="bead" style="--s:44px;--x:71%;--y:80%;--d:.3s"></span>
-        <span class="bead" style="--s:18px;--x:76%;--y:22%;--d:.8s"></span>
-        <span class="bead" style="--s:14px;--x:81%;--y:58%;--d:.9s"></span>
-        <span class="bead" style="--s:22px;--x:87%;--y:40%;--d:.6s"></span>
-        <span class="bead" style="--s:12px;--x:69%;--y:38%;--d:1s"></span>
-        <span class="bead" style="--s:16px;--x:95%;--y:56%;--d:.75s"></span>
+    <div class="banner-photo">
+        <img src="img/banner.jpg" alt="Skier in a cream down jacket carrying skis on a snowy mountain" fetchpriority="high">
     </div>
 </section>
 
@@ -61,8 +67,10 @@
 </footer>
 
 <script src="js/art.js"></script>
-document.documentElement.classList.add('js');
+<script src="js/bag.js"></script>
 <script>
+    document.documentElement.classList.add('js');
+
     function card(p) {
         return `
         <article class="card">
@@ -85,7 +93,10 @@ document.documentElement.classList.add('js');
           <h3><a href="product.html?id=${p.id}">${p.name}</a></h3>
           <p class="category">${p.category}</p>
           <p class="price">€${p.price}</p>
-          <button class="flip" type="button">Read the label</button>
+          <div class="actions">
+            <button class="flip" type="button">Read the label</button>
+            <button class="add" type="button" data-id="${p.id}">Add to bag</button>
+          </div>
         </article>`;
     }
 
@@ -98,6 +109,7 @@ document.documentElement.classList.add('js');
             };
             show('grid-everyday', 'everyday');
             show('grid-alpine', 'alpine');
+
             const io = new IntersectionObserver(entries => {
                 entries.forEach(e => {
                     if (e.isIntersecting) {
@@ -114,10 +126,18 @@ document.documentElement.classList.add('js');
         });
 
     document.addEventListener('click', e => {
-        const btn = e.target.closest('.flip');
-        if (!btn) return;
-        const open = btn.closest('.card').classList.toggle('flipped');
-        btn.textContent = open ? 'Back' : 'Read the label';
+        const flip = e.target.closest('.flip');
+        if (flip) {
+            const open = flip.closest('.card').classList.toggle('flipped');
+            flip.textContent = open ? 'Back' : 'Read the label';
+            return;
+        }
+        const add = e.target.closest('.add');
+        if (add) {
+            Bag.add(add.dataset.id);
+            updateBagCount();
+            toast('Added to your bag');
+        }
     });
 </script>
 

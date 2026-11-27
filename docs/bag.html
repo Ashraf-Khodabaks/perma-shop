@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your bag - Perma</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">PERMA</a>
+  <nav>
+    <a href="index.html#collection">Shop</a>
+    <a href="learn.html">The label</a>
+    <a href="bag.html" aria-current="page">Bag (<span data-bag-count>0</span>)</a>
+  </nav>
+</header>
+
+<main class="bag-page">
+  <h1>Your bag</h1>
+  <div class="bag-layout">
+    <div id="lines"></div>
+    <aside id="meter" class="meter-card"></aside>
+  </div>
+</main>
+
+<footer>
+  <p>Perma is a fictional brand, made for a university assignment about PFAS. Nothing here can be bought.</p>
+</footer>
+
+<script src="js/art.js"></script>
+<script src="js/bag.js"></script>
+<script>
+  const MAX = 12;
+  let products = [];
+
+  function levelFor(score) {
+    if (score === 0) {
+      return { key: 'none', name: 'None',
+        text: 'Nothing in your bag carries a PFAS finish.' };
+    }
+    if (score <= 4) {
+      return { key: 'low', name: 'Low',
+        text: 'A few treated items. Washing and wear slowly wear the finish off, and PFAS don’t break down once they are out in the environment.' };
+    }
+    if (score <= 8) {
+      return { key: 'medium', name: 'Medium',
+        text: 'More treated items means more finish washing out into household wastewater. Treatment plants aren’t built to filter PFAS, so a lot of it passes through to rivers and the sea.' };
+    }
+    return { key: 'high', name: 'High',
+      text: 'That is a lot of PFAS-treated clothing and gear. PFAS have been found in drinking water sources, in wildlife and in people’s blood worldwide. Some PFAS are linked to higher cholesterol, a weaker response to vaccines in children, and certain cancers. The harm from one garment is hard to pin down. The worry is the build-up across many products and many people over a long time.' };
+  }
+
+  function render() {
+    const items = Bag.read();
+    const lines = document.getElementById('lines');
+    const meter = document.getElementById('meter');
+
+    if (items.length === 0) {
+      lines.innerHTML = '<p>Your bag is empty. <a href="index.html#collection">Back to the collection</a></p>';
+    } else {
+      let total = 0;
+      lines.innerHTML = items.map((it, i) => {
+        const p = products.find(x => x.id === it.id);
+        if (!p) return '';
+        total += p.price;
+        return `
+                <article class="line">
+                    <div class="thumb">${garment(p.id)}</div>
+                    <div class="line-info">
+                        <h3>${p.name}</h3>
+                        <p class="category">${p.category}</p>
+                        ${it.free
+                ? `<p><span class="chip free-chip">PFAS-free</span> ${p.altName}</p>`
+                : `<p><span class="chip">PFAS</span> ${p.finish}</p>`}
+                        <div class="line-actions">
+                            <button type="button" class="link" data-act="swap" data-i="${i}">
+                                ${it.free ? 'Back to the original' : 'Swap for the PFAS-free option'}
+                            </button>
+                            <button type="button" class="link" data-act="remove" data-i="${i}">Remove</button>
+                        </div>
+                    </div>
+                    <p class="price">€${p.price}</p>
+                </article>`;
+      }).join('') + `<div class="total"><span>Total</span><span>€${total}</span></div>`;
+    }
+
+    const score = items.reduce((s, it) => s + (it.free ? 0 : (POINTS[it.id] ?? 1)), 0);
+    const lv = levelFor(score);
+    const pct = Math.min(score / MAX, 1) * 100;
+    const waxInBag = items.some(it => it.id === 'wax' && !it.free);
+
+    meter.innerHTML = `
+            <h2>PFAS meter</h2>
+            <div class="gauge" data-level="${lv.key}"><div class="gauge-fill"></div></div>
+            <div class="gauge-scale"><span>None</span><span>Low</span><span>Medium</span><span>High</span></div>
+            <p class="level">${lv.name}</p>
+            <p>${lv.text}</p>
+            ${waxInBag ? '<p>Glide wax is made to wear off against the snow, so the fluorinated additive ends up where you ski.</p>' : ''}
+            <p class="fine">This meter is an illustration, not a measurement. The points per product are our own rough estimate. Read more on <a href="learn.html">the label page</a>.</p>
+        `;
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      meter.querySelector('.gauge-fill').style.width = pct + '%';
+    }));
+  }
+
+  document.getElementById('lines').addEventListener('click', e => {
+    const b = e.target.closest('button[data-act]');
+    if (!b) return;
+    const i = Number(b.dataset.i);
+    if (b.dataset.act === 'remove') Bag.remove(i);
+    if (b.dataset.act === 'swap') Bag.toggleFree(i);
+    updateBagCount();
+    render();
+  });
+
+  fetch('products.json')
+          .then(r => r.json())
+          .then(data => { products = data; render(); });
+</script>
+
+</body>
+</html>
