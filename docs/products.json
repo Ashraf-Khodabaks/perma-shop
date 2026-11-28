@@ -35,6 +35,20 @@
     ]
   },
   {
+    "id": "hoodie",
+    "collection": "everyday",
+    "name": "Too Long Hoodie",
+    "category": "Sweaters",
+    "price": 85.0,
+    "description": "Oversized hoodie in washed navy. A small print on the chest, a big one on the back.",
+    "content": "Cotton fleece, rib-knit cuffs and hem",
+    "wash": "Machine wash at 30°C.",
+    "views": [
+      { "id": "front", "name": "Front", "image": "img/hoodie-front.jpg" },
+      { "id": "back", "name": "Back", "image": "img/hoodie-back.jpg" }
+    ]
+  },
+  {
     "id": "sneaker",
     "collection": "everyday",
     "name": "Trail Sneaker",

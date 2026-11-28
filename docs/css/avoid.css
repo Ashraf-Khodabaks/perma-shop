@@ -1,0 +1,183 @@
+/* ---------- Label: wat je vermijdt ---------- */
+.claim {
+    margin: 0 0 6px;
+    text-align: center;
+    font-size: .92em;
+    font-weight: 700;
+    color: #1F7A4D;
+}
+
+.chip.high    { background: #D6264F; }
+.chip.unknown { background: #75685E; }
+
+.ev {
+    display: inline-block;
+    padding: 0 6px;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.ev.strong   { color: #1F7A4D; }
+.ev.moderate { color: #A86A0B; }
+.ev.weak     { color: #75685E; }
+
+/* ---------- Productpagina: bewijs ---------- */
+.evidence {
+    max-width: 480px;
+    padding: 20px;
+    border: 1px solid #D9CFC1;
+    border-radius: 8px;
+}
+.evidence h3 { margin: 0 0 10px; font-size: 20px; }
+.evidence p { margin: 0 0 10px; }
+.evidence .meta-line { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.evidence .small { font-size: 15px; color: var(--soft); margin: 0; }
+
+body.alpine .evidence { border-color: rgba(255, 255, 255, .25); }
+body.alpine .ev.strong   { color: #7FD6A5; }
+body.alpine .ev.moderate { color: #F0B35A; }
+body.alpine .ev.weak     { color: #CDBBAA; }
+body.alpine .claim, .drop .claim { color: #1F7A4D; }
+
+/* ---------- Foto-weergaven (voor- en achterkant) ---------- */
+.stage-col { position: sticky; top: 24px; align-self: start; }
+.stage-col .stage { position: relative; top: auto; }
+
+.views { display: flex; gap: 12px; margin-top: 14px; }
+.view-thumb {
+    width: 72px;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: var(--panel);
+    cursor: pointer;
+    overflow: hidden;
+    opacity: .75;
+    transition: opacity .2s, border-color .2s;
+}
+.view-thumb img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.view-thumb:hover { opacity: 1; }
+.view-thumb.selected { opacity: 1; border-color: var(--sea); }
+body.alpine .view-thumb.selected { border-color: var(--ice); }
+
+.photo-back { opacity: 0; }
+.card:hover .photo-back { opacity: 1; }
+.card.flipped .photo-back { opacity: 0; }
+
+@media (max-width: 800px) {
+    .stage-col { position: static; }
+}
+
+/* ---------- Mandje: meter voor wat je vermijdt ---------- */
+.meter-card .gauge[data-level] .gauge-fill { background: #1F7A4D; }
+.avoid-line { margin: 0 0 8px; font-size: 15px; }
+.evidence-count { font-size: 14px; color: var(--soft); }
+
+/* ---------- Materialenpagina ---------- */
+.materials { padding: 16px var(--side) 80px; }
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    color: var(--soft);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+.eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--bead); }
+
+.mat-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
+    align-items: end;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+.mat-intro h1 { font-size: clamp(36px, 5.5vw, 76px); line-height: .98; margin: 0; }
+.mat-intro p { margin: 0; color: var(--soft); }
+
+.mat-card {
+    overflow: hidden;
+    border: 1px solid #D9CFC1;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 10px 24px rgba(38, 28, 23, .08);
+}
+.mat-scroll { overflow-x: auto; }
+.mat-scroll table { width: 100%; min-width: 690px; border-collapse: collapse; text-align: left; }
+.mat-scroll thead th {
+    padding: 18px 22px;
+    background: var(--sea);
+    color: var(--rain);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.mat-scroll thead th:first-child { width: 23%; }
+.mat-scroll thead th .season {
+    display: block;
+    margin-top: 4px;
+    color: #CDBBAA;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+}
+.mat-scroll tbody th, .mat-scroll tbody td {
+    padding: 18px 22px;
+    border-bottom: 1px solid #E7E0D5;
+    vertical-align: top;
+    font-size: 16px;
+    line-height: 1.5;
+}
+.mat-scroll tbody tr:last-child th, .mat-scroll tbody tr:last-child td { border-bottom: 0; }
+.mat-scroll tbody tr:nth-child(even) { background: #FAF7F2; }
+.mat-scroll tbody th { font-weight: 700; }
+.mat-scroll .hl { font-weight: 700; }
+
+.mat-note {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    align-items: start;
+    margin-top: 20px;
+    padding: 20px 22px;
+    border: 1px solid #D9CFC1;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 16px;
+}
+.mat-note p { margin: 0; }
+.mat-icon {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--bead);
+    color: #fff;
+    font-weight: 800;
+}
+
+.mat-claim { margin-top: 56px; max-width: 720px; }
+.mat-claim h2 { font-size: clamp(26px, 3.4vw, 40px); margin: 0 0 16px; }
+.mat-claim p { margin: 0 0 14px; }
+.badge-big {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 2px solid #1F7A4D;
+    border-radius: 999px;
+    color: #1F7A4D;
+    font-weight: 700;
+}
+.mat-foot { margin: 20px 2px 0; color: var(--soft); font-size: 14px; max-width: 720px; }
+
+@media (max-width: 700px) {
+    .mat-intro { grid-template-columns: 1fr; gap: 16px; }
+    .mat-scroll thead th, .mat-scroll tbody th, .mat-scroll tbody td { padding: 14px; }
+}

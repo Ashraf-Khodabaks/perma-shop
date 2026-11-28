@@ -6,6 +6,7 @@
     <title>Product - Perma</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/avoid.css">
 </head>
 <body>
 
@@ -13,6 +14,7 @@
     <a class="logo" href="index.html">PERMA</a>
     <nav>
         <a href="index.html#collection">Shop</a>
+        <a href="materials.html">Materials</a>
         <a href="learn.html">The label</a>
         <a href="bag.html">Bag (<span data-bag-count>0</span>)</a>
     </nav>
@@ -28,6 +30,7 @@
 
 <script src="js/art.js"></script>
 <script src="js/bag.js"></script>
+<script src="js/avoid.js"></script>
 <script>
     const id = new URLSearchParams(location.search).get('id');
     const root = document.getElementById('product');
@@ -39,7 +42,7 @@
             const p = products.find(x => x.id === id);
 
             if (!p) {
-                root.innerHTML = '<p>Product not found.</p>';
+                root.innerHTML = '<p>Product not found. <a href="index.html#collection">Back to the collection</a></p>';
                 return;
             }
 
@@ -49,21 +52,36 @@
                 document.body.classList.add('alpine');
             }
 
-            // Selecteer standaard de eerste kleur
             const colors = p.colors || [];
+            const views = p.views || [];
             let selectedColor = colors.length > 0 ? colors[0] : null;
+            const firstImage = selectedColor?.image || views[0]?.image || null;
+            const a = avoidFor(p.id);
 
-            // Bouw de productpagina
             root.innerHTML = `
-                <div class="stage">
-                    ${garment(p.id, selectedColor?.image)}
+                <div class="stage-col">
+                    <div class="stage">
+                        ${garment(p.id, firstImage)}
+                    </div>
+
+                    ${views.length > 1 ? `
+                        <div class="views">
+                            ${views.map((v, i) => `
+                                <button type="button"
+                                        class="view-thumb ${i === 0 ? 'selected' : ''}"
+                                        data-image="${v.image}"
+                                        aria-label="${v.name}"
+                                        title="${v.name}">
+                                    <img src="${v.image}" alt="${v.name} view">
+                                </button>
+                            `).join('')}
+                        </div>
+                    ` : ''}
                 </div>
 
                 <div class="info">
 
-                    <a class="crumb" href="index.html#collection">
-                        Back to the collection
-                    </a>
+                    <a class="crumb" href="index.html#collection">Back to the collection</a>
 
                     <h1>${p.name}</h1>
 
@@ -73,13 +91,10 @@
 
                     ${colors.length > 0 ? `
                         <div class="color-section">
-
                             <h3>Color</h3>
-
                             <div class="color-options">
                                 ${colors.map(color => `
-                                    <button
-                                        type="button"
+                                    <button type="button"
                                         class="color-option ${color.id === selectedColor.id ? 'selected' : ''}"
                                         data-color="${color.id}"
                                         style="--color: ${color.hex}"
@@ -88,95 +103,65 @@
                                     </button>
                                 `).join('')}
                             </div>
-
-                            <p id="selected-color">
-                                ${selectedColor.name}
-                            </p>
-
+                            <p id="selected-color">${selectedColor.name}</p>
                         </div>
                     ` : ''}
 
-                    <button class="add" type="button">
-                        Add to bag
-                    </button>
+                    <button class="add" type="button">Add to bag</button>
 
                     <h2>The label</h2>
 
                     <div class="tag">
-                        <p class="label-title">
-                            Perma · care &amp; content
-                        </p>
-
-                        <dl>
-                            <dt>Content</dt>
-                            <dd>${p.content}</dd>
-
-                            <dt>${p.finishLabel || 'Finish'}
-                                <span class="chip">PFAS</span>
-                            </dt>
-                            <dd>${p.finish}</dd>
-
-                            <dt>${p.washLabel || 'Wash'}</dt>
-                            <dd>${p.wash}</dd>
-
-                            <dt>Afterwards</dt>
-                            <dd>${p.afterwards}</dd>
-                        </dl>
+                        ${labelInner(p)}
                     </div>
 
-                    <h2>A different option</h2>
+                    <h2>Why you avoid it</h2>
 
-                    <div class="alt">
-                        <h3>${p.altName}</h3>
-                        <p>${p.altNote}</p>
+                    <div class="evidence">
+                        <div class="meta-line">
+                            <span class="chip ${a.level}">Level: ${LEVELS[a.level].name}</span>
+                            ${evBadge(a)}
+                        </div>
+                        <p>${a.avoid}</p>
+                        ${a.amount ? `<p><strong>Measured:</strong> ${a.amount}</p>` : ''}
+                        <p class="small"><strong>Basis:</strong> ${a.basis}</p>
+                        <p class="small">Level shows how often PFAS were found in conventional versions of this product. “Unknown” means we found no tests, not that it is safe. See <a href="learn.html#sources">the sources</a> and <a href="materials.html">our materials</a>.</p>
                     </div>
 
                 </div>
             `;
 
-            // Kleur selecteren
+            // Kleur kiezen
             root.querySelectorAll('.color-option').forEach(button => {
-
                 button.addEventListener('click', () => {
+                    selectedColor = colors.find(c => c.id === button.dataset.color);
 
-                    const colorId = button.dataset.color;
-
-                    selectedColor = colors.find(
-                        color => color.id === colorId
-                    );
-
-                    // Verander de productfoto
                     const photo = root.querySelector('.stage img');
+                    if (photo) photo.src = selectedColor.image;
 
-                    if (photo) {
-                        photo.src = selectedColor.image;
-                    }
-
-                    // Verander de geselecteerde kleur
-                    root.querySelectorAll('.color-option')
-                        .forEach(b => b.classList.remove('selected'));
-
+                    root.querySelectorAll('.color-option').forEach(b => b.classList.remove('selected'));
                     button.classList.add('selected');
-
-                    // Toon de kleurnaam
-                    root.querySelector('#selected-color').textContent =
-                        selectedColor.name;
-
+                    root.querySelector('#selected-color').textContent = selectedColor.name;
                 });
-
             });
 
-            // Product toevoegen aan winkelmand
+            // Voorkant / achterkant kiezen
+            root.querySelectorAll('.view-thumb').forEach(button => {
+                button.addEventListener('click', () => {
+                    const photo = root.querySelector('.stage img');
+                    if (photo) photo.src = button.dataset.image;
+
+                    root.querySelectorAll('.view-thumb').forEach(b => b.classList.remove('selected'));
+                    button.classList.add('selected');
+                });
+            });
+
+            // Toevoegen aan tas
             root.querySelector('.add').addEventListener('click', () => {
-
                 Bag.add(p.id, selectedColor?.id);
-
                 updateBagCount();
-
                 toast('Added to your bag');
-
             });
-
         });
 </script>
 

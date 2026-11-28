@@ -6,6 +6,7 @@
     <title>Perma</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/avoid.css">
 </head>
 <body>
 
@@ -13,6 +14,7 @@
     <a class="logo" href="index.html">PERMA</a>
     <nav>
         <a href="index.html#collection">Shop</a>
+        <a href="materials.html">Materials</a>
         <a href="learn.html">The label</a>
         <a href="bag.html">Bag (<span data-bag-count>0</span>)</a>
     </nav>
@@ -59,7 +61,7 @@
 <section id="alpine" class="shop drop">
     <p class="drop-tag">Drop 01</p>
     <h2>Alpine</h2>
-    <p class="drop-lede">Our ski collection, it uses the same water-repellent finish as the pieces above</p>
+    <p class="drop-lede">Our ski collection, made without intentionally added PFAS.</p>
     <div id="grid-alpine" class="grid"></div>
 </section>
 
@@ -69,6 +71,7 @@
 
 <script src="js/art.js"></script>
 <script src="js/bag.js"></script>
+<script src="js/avoid.js"></script>
 <script>
     document.documentElement.classList.add('js');
     let products = [];
@@ -77,20 +80,9 @@
         return `
         <article class="card">
           <div class="picture">
-            ${garment(p.id, p.colors?.[0]?.image)}
-            <div class="label">
-              <p class="label-title">Perma · care &amp; content</p>
-              <dl>
-                <dt>Content</dt>
-                <dd>${p.content}</dd>
-                <dt>${p.finishLabel || 'Finish'} <span class="chip">PFAS</span></dt>
-                <dd>${p.finish}</dd>
-                <dt>${p.washLabel || 'Wash'}</dt>
-                <dd>${p.wash}</dd>
-                <dt>Afterwards</dt>
-                <dd>${p.afterwards}</dd>
-              </dl>
-            </div>
+            ${garment(p.id, p.colors?.[0]?.image || p.views?.[0]?.image)}
+            ${p.views?.[1] ? `<img class="photo photo-back" src="${p.views[1].image}" alt="${p.name}, back" loading="lazy">` : ''}
+            <div class="label">${labelInner(p)}</div>
           </div>
           <h3><a href="product.html?id=${p.id}">${p.name}</a></h3>
           <p class="category">${p.category}</p>
