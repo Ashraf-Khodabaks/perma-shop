@@ -421,7 +421,7 @@ body.alpine .alt {
 }
 
 .stage {
-    overflow: hidden}
+    overflow: hidden;}
 
 /* ---------- Typografie ---------- */
 h1, h2, h3 {
@@ -624,13 +624,14 @@ header, .hero, .shop, footer, .product {
 }
 
 .js .card.in {
+    --i: 0;
     opacity: 1;
     transform: none;
     transition-delay: calc(var(--i, 0) * 90ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .js .card {--i: 0; opacity: 1; transform: none; transition: none; }
+    .js .card { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- Banner ---------- */
@@ -891,6 +892,7 @@ body.alpine .add {
 }
 
 .color-option {
+    --color: #cccccc;
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -961,3 +963,5 @@ footer,
     line-height: 1.3;
     max-width: 22em;
 }
+.gauge { background: #E7E0D5; }
+.color-option { outline-color: #D9CFC1; }
