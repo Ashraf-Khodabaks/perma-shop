@@ -133,5 +133,20 @@
     "afterwards": "Wear and cleaning can release bits of the treatment into dust and meltwater.",
     "altName": "Boots with a PFAS-free liner treatment",
     "altNote": "Liners without a fluorinated treatment stay warm. They can take longer to dry once wet."
+  },
+
+  {
+    "id": "suit",
+    "collection": "alpine",
+    "name": "Summit Ski Suit",
+    "category": "Ski suit",
+    "price": 389.0,
+    "description": "One-piece insulated ski suit with a belt and a contrast collar.",
+    "content": "Recycled polyester shell, synthetic insulation",
+    "finish": "Fluorocarbon water-repellent finish (DWR)",
+    "wash": "Gentle wash at 30°C. The finish wears off over time.",
+    "afterwards": "Washing and wear send part of the finish into wastewater. PFAS pass through treatment plants.",
+    "altName": "The same suit with a PFAS-free finish",
+    "altNote": "Wax or silicone-based finishes keep out light snow. In wet snow you may need to reapply them more often."
   }
 ]

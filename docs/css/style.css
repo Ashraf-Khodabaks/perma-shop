@@ -915,3 +915,43 @@ body.alpine .add {
     font-size: 15px;
     color: var(--soft);
 }
+
+/* ---------- Warm palet: past bij de foto's ---------- */
+:root {
+    --rain: #F3EFE8;
+    --panel: #E7E0D5;
+    --sea: #261C17;
+    --soft: #75685E;
+    --ice: #BFDDF5;
+}
+
+.drop,
+body.alpine {
+    --panel: #3A2B24;
+    --soft: #CDBBAA;
+}
+
+.drop .label,
+body.alpine .tag {
+    --soft: #75685E;
+}
+
+.ridge path { fill: var(--sea); }
+
+footer,
+.line,
+.total { border-top-color: #D9CFC1; }
+
+.banner { position: relative; overflow: hidden; }
+.banner .beads { inset: 0; z-index: 2; }
+
+.shop { padding-top: 96px; }
+.grid { gap: 56px 28px; }
+
+.card .picture { border-radius: 10px; overflow: hidden; }
+.photo {
+    border-radius: 0;
+    transition: transform .8s cubic-bezier(.2, .7, .2, 1);
+}
+.card:hover .photo { transform: scale(1.05); }
+.card h3 { font-size: 19px; }
